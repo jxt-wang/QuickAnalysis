@@ -9,7 +9,7 @@
         <tab id="export_tools" label="Export Tools">
 
           <group id="group_chartOptions" label="Chart Options">
-
+            
             <button id="button_exportChart" label="Export" onAction="click_exportChart" size="large" getImage="GetImage"/>
 
           </group>
@@ -36,8 +36,10 @@
 
         </group>
 
-        <group id="group_statAnalysis" label="Statistical Analysis">
+        <group id="group_statAnalysis" label="Stats">
 
+          <button id="button_analyzeChart" label="Analyze" onAction="click_analyzeChart" size="large" getImage="GetImage"/>
+          
           <!--<box boxStyle="horizontal" id="box_b">
             <button id="textBox" size="normal" getImage="GetImage" enabled="false"/>
           </box>

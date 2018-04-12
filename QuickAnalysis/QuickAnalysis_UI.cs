@@ -185,6 +185,7 @@ namespace QuickAnalysis
                     catch (Exception IE)
                     {
                         MessageBox.Show(IE.Message + " error: could not load file");
+                        continue;
                     }
 
                 }
@@ -226,7 +227,7 @@ namespace QuickAnalysis
                 Excel.Range range_chart;
 
                 Excel.ChartObjects xlCharts = (Excel.ChartObjects)worksheet_new.ChartObjects(Type.Missing);
-                Excel.ChartObject myChart = (Excel.ChartObject)xlCharts.Add(10, 80, 300, 250);
+                Excel.ChartObject myChart = (Excel.ChartObject)xlCharts.Add(50, 150, 500, 250);
                 Excel.Chart chartPage = myChart.Chart;
 
                 range_chart = worksheet_new.UsedRange;
@@ -242,7 +243,12 @@ namespace QuickAnalysis
                 //chartPage.SetSourceData(range_trendline, misValue);
                 chartPage.ChartType = Excel.XlChartType.xlXYScatter;
 
-
+                foreach (Excel.Series series in chartPage.SeriesCollection())
+                {
+                    Excel.Trendline trendline = series.Trendlines().Add(Excel.XlTrendlineType.xlLinear, System.Type.Missing, System.Type.Missing, 20, System.Type.Missing, System.Type.Missing, true, true, System.Type.Missing);
+                    Excel.DataLabel datalabel_temp = trendline.DataLabel;
+                    datalabel_temp.NumberFormat = "0.0000E+00";
+                }
 
                 Excel.Range a1 = range_chart.Columns[1].Find("-20");
                 Excel.Range a2 = worksheet_new.Cells[range_chart.Rows.Count, 1];
@@ -250,30 +256,93 @@ namespace QuickAnalysis
                 for (int i = 1; i <= range_trendline.Columns.Count; i++)
                 {
                     Excel.Series series_temp = chartPage.SeriesCollection().Add(range_trendline.Columns[i]);
+                    
                     series_temp.XValues = a3;
                     Excel.Trendlines trendlines_temp = series_temp.Trendlines();
-                    trendlines_temp.Add(Excel.XlTrendlineType.xlLinear, System.Type.Missing,
-    System.Type.Missing, System.Type.Missing, System.Type.Missing, System.Type.Missing,
-    true, true, System.Type.Missing);
+                    Excel.Trendline trendline_temp = trendlines_temp.Add(Excel.XlTrendlineType.xlLinear, System.Type.Missing, System.Type.Missing, 20, System.Type.Missing, System.Type.Missing, true, true, System.Type.Missing);
+                    Excel.DataLabel datalabel_temp = trendline_temp.DataLabel;
+                    
+                    datalabel_temp.NumberFormat = "0.0000E+00";
+                  
+                }
+                
+
+            }
+            
+        }
+
+        public void click_analyzeChart(Office.IRibbonControl control)
+        {
+            Excel.Chart chart_active = GetActiveChart();
+
+            List<double> x_intercepts = new List<double>();
+
+            foreach (Excel.Series series in chart_active.SeriesCollection())
+            {
+                Excel.Trendlines trendlines_temp = series.Trendlines();
+                if(trendlines_temp.Count > 0)
+                {
+
+                    Excel.DataLabel dlabel_temp = trendlines_temp.Item(1).DataLabel;
+                    string label = dlabel_temp.Text;
+                    int x = label.IndexOf("R²");
+                    int y = label.IndexOf("y");
+
+                    string equation = label.Substring(y, x);
+                    string r_val = label.Substring(x);
+
+                    Regex pattern = new Regex(@"[\d]*\.?[\d]+(E[-+][\d]+)?");
+                    Match match = pattern.Match(r_val);
+                    double r_squared = Double.Parse(match.Value, System.Globalization.NumberStyles.Float);
+
+                    if (r_squared < 0.9)
+                    {
+                        trendlines_temp.Item(1).Delete();
+                        if (r_squared < 0.7)
+                        {
+                            series.Delete();
+                        }
+                        continue;
+                    }
+                    
+
+                    Regex pattern_x = new Regex(@"[\d]*\.?[\d]+(E[-+][\d]+)?");
+                    MatchCollection matches = pattern_x.Matches(equation);
+
+
+                    Stack<double> eq_vals = new Stack<double>();
+
+                    foreach (Match match_temp in matches)
+                    {
+                        double val = Double.Parse(match_temp.Value, System.Globalization.NumberStyles.Float);
+                        eq_vals.Push(val);
+                    }
+
+                    double y_int = eq_vals.Pop();
+                    double y_slope = eq_vals.Pop();
+
+                    if(y_slope < 1e-8)
+                    {
+                        trendlines_temp.Item(1).Delete();
+                        series.Delete();
+                        continue;
+                    }
+
+                    double x_int = (-1*y_int) / y_slope;
+                    
+                    x_intercepts.Add(x_int);
+
+
+
+
                     
                     
                 }
+            }
 
-                //foreach (Excel.Series series in chartPage.SeriesCollection())
-                //{
-                //    //Excel.Series series_sub = series.
-                //    Excel.Trendlines trendlines_temp = series.Trendlines();
-                //    trendlines_temp.Add(Excel.XlTrendlineType.xlLinear);
-                //}
-
-                //Excel.Series series = chart.SeriesCollection(1);
-                //Excel.Trendlines trendlines = series.Trendlines();
-                //tl.Add(Excel.XlTrendlineType.xlPower);
-
-                //Excel.Chart chart_temp =
-
-
-
+            if(x_intercepts.Count > 0)
+            {
+                MessageBox.Show(x_intercepts.Average().ToString());
             }
 
         }
@@ -456,6 +525,7 @@ namespace QuickAnalysis
                 case "button_importData": return new Bitmap(Properties.Resources.import);
                 case "button_saveData": return new Bitmap(Properties.Resources.save_as);
                 case "button_exportChart": return new Bitmap(Properties.Resources.export);
+                case "button_analyzeChart": return new Bitmap(Properties.Resources.tick_marks);
             }
 
             return null;
