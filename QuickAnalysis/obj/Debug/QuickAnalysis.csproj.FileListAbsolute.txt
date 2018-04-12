@@ -1,0 +1,13 @@
+C:\Users\Justin Wang\Classwork\Franklin Lab\QuickAnalysis\QuickAnalysis\bin\Debug\QuickAnalysis.dll
+C:\Users\Justin Wang\Classwork\Franklin Lab\QuickAnalysis\QuickAnalysis\bin\Debug\QuickAnalysis.pdb
+C:\Users\Justin Wang\Classwork\Franklin Lab\QuickAnalysis\QuickAnalysis\bin\Debug\QuickAnalysis.dll.manifest
+C:\Users\Justin Wang\Classwork\Franklin Lab\QuickAnalysis\QuickAnalysis\bin\Debug\QuickAnalysis.vsto
+C:\Users\Justin Wang\Classwork\Franklin Lab\QuickAnalysis\QuickAnalysis\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.dll
+C:\Users\Justin Wang\Classwork\Franklin Lab\QuickAnalysis\QuickAnalysis\obj\Debug\QuickAnalysis.Properties.Resources.resources
+C:\Users\Justin Wang\Classwork\Franklin Lab\QuickAnalysis\QuickAnalysis\obj\Debug\QuickAnalysis.csproj.GenerateResource.Cache
+C:\Users\Justin Wang\Classwork\Franklin Lab\QuickAnalysis\QuickAnalysis\obj\Debug\QuickAnalysis.csproj.CoreCompileInputs.cache
+C:\Users\Justin Wang\Classwork\Franklin Lab\QuickAnalysis\QuickAnalysis\obj\Debug\QuickAnalysis.dll
+C:\Users\Justin Wang\Classwork\Franklin Lab\QuickAnalysis\QuickAnalysis\obj\Debug\QuickAnalysis.pdb
+C:\Users\Justin Wang\Classwork\Franklin Lab\QuickAnalysis\QuickAnalysis\obj\Debug\QuickAnalysis.csprojResolveAssemblyReference.cache
+C:\Users\Justin Wang\Classwork\Franklin Lab\QuickAnalysis\QuickAnalysis\obj\Debug\QuickAnalysis.ImportData_Settings.resources
+C:\Users\Justin Wang\Classwork\Franklin Lab\QuickAnalysis\QuickAnalysis\bin\Debug\QuickAnalysis.dll.config

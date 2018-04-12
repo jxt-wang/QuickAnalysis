@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<customUI xmlns="http://schemas.microsoft.com/office/2009/07/customui" onLoad="Ribbon_Load">
+  <ribbon>
+
+    <contextualTabs>
+      
+        <tabSet idMso="TabSetChartTools">
+        
+        <tab id="export_tools" label="Export Tools">
+
+          <group id="group_chartOptions" label="Chart Options">
+
+            <button id="button_exportChart" label="Export" onAction="click_exportChart" size="large" getImage="GetImage"/>
+
+          </group>
+
+        </tab>
+      
+        </tabSet>
+      
+    </contextualTabs>
+
+
+
+    <tabs>
+      
+      <tab id="sample_analysis" label="Sample Analysis">
+
+        <group id="group_fileOptions" label="File Options">
+
+          <button id="button_importData" label="Import Data" onAction="click_importData" size="large" getImage="GetImage"/>
+
+          <separator id="spt_a"/>
+
+          <button id="button_saveData" label="Save Data" onAction="click_saveData" size="large" getImage="GetImage"/>
+
+        </group>
+
+        <group id="group_statAnalysis" label="Statistical Analysis">
+
+          <!--<box boxStyle="horizontal" id="box_b">
+            <button id="textBox" size="normal" getImage="GetImage" enabled="false"/>
+          </box>
+
+          <buttonGroup id="bgroup_a" visible="true">
+            <button id="title_font" onAction="font_Click" getImage="GetImage"/>
+            <button id="a_title_font_x" onAction="font_Click" getImage="GetImage"/>
+            <button id="a_title_font_y" onAction="font_Click" getImage="GetImage"/>
+            <button id="legend_font" onAction="font_Click" getImage="GetImage"/>
+            <button id="axis_font_x" onAction="font_Click" getImage="GetImage"/>
+            <button id="axis_font_y" onAction="font_Click" getImage="GetImage"/>
+          </buttonGroup>-->
+
+        </group>
+
+      </tab>
+      
+    </tabs>
+    
+    
+  </ribbon>
+</customUI>
+
